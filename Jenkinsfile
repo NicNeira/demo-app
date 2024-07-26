@@ -13,7 +13,7 @@ pipeline {
                 script {
                     def mvn = tool 'Maven 3.8.1' // Usa el nombre exacto configurado
                     withSonarQubeEnv() {
-                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.host.url=http://${SONARQUBE_URL}:9000 -Dsonar.projectKey=sonartkn-demo-app -Dsonar.projectName='demo-app'"
+                        sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.host.url=http://${SONARQUBE_URL}:9000 -Dsonar.projectKey=token-demo-app -Dsonar.projectName='demo-app Maven Webapp'"
                     }
                 }
             }
