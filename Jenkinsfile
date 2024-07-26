@@ -11,7 +11,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 script {
-                    def mvn = tool 'Default Maven'
+                    def mvn = tool 'Maven 3.8.1' // Usa el nombre exacto configurado
                     withSonarQubeEnv() {
                         sh "${mvn}/bin/mvn clean verify sonar:sonar -Dsonar.projectKey=sonartkn-demo-app -Dsonar.projectName='demo-app'"
 
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 echo 'Building...'
                 // Aquí puedes agregar tus comandos de compilación, por ejemplo:
-                // sh 'mvn clean install'
+                sh 'mvn clean install'
             }
         }
 
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 echo 'Testing...'
                 // Aquí puedes agregar tus comandos de prueba, por ejemplo:
-                // sh 'mvn test'
+                sh 'mvn test'
             }
         }
 
