@@ -35,12 +35,19 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
+        stage('Deploy Artifact to Nexus') {
             steps {
-                echo 'Deploying...'
-                 script {
-                    def mvn = tool 'Maven 3.8.1' // Asegúrate de que este nombre coincida con tu configuración en Jenkins
-                    sh "${mvn}/bin/mvn deploy"
+                script {
+                    def nexusCredentials = 'nexus-auth' // ID de las credenciales configuradas en Jenkins
+                    def nexusUrl = 'https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/'
+                    def repository = 'maven-demo-app'
+                    def artifact = 'target/demo-app.jar'
+
+                    withCredentials([usernamePassword(credentialsId: nexusCredentials, passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
+                        sh """
+                        curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file ${artifact} ${nexusUrl}/repository/${repository}/
+                        """
+                    }
                 }
             }
         }
