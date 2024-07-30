@@ -11,7 +11,7 @@
     <repositories>
         <repository>
             <id>maven-demo-app</id>
-            <url>http://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/</url>
+            <url>https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
@@ -24,11 +24,11 @@
     <distributionManagement>
         <repository>
           <id>maven-demo-app</id>
-          <url>http://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/</url>
+          <url>https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/</url>
         </repository>
         <snapshotRepository>
           <id>maven-demo-app</id>
-          <url>http://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/</url>
+          <url>https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/</url>
         </snapshotRepository>
     </distributionManagement>
 
