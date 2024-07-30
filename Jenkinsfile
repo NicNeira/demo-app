@@ -41,7 +41,7 @@ pipeline {
                     def nexusCredentials = 'nexus-auth' // ID de las credenciales configuradas en Jenkins
                     def nexusUrl = 'https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/'
                     def repository = 'maven-demo-app'
-                    def artifact = 'target/demo-app.jar'
+                    def artifact = 'target/demo-app.war'
 
                     withCredentials([usernamePassword(credentialsId: nexusCredentials, passwordVariable: 'NEXUS_PASSWORD', usernameVariable: 'NEXUS_USERNAME')]) {
                         sh """
