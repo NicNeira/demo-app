@@ -38,8 +38,10 @@ pipeline {
         stage('Deploy') {
             steps {
                 echo 'Deploying...'
-                // Aquí puedes agregar tus comandos de despliegue, por ejemplo:
-                // sh 'kubectl apply -f deployment.yaml'
+                 script {
+                    def mvn = tool 'Maven 3.8.1' // Asegúrate de que este nombre coincida con tu configuración en Jenkins
+                    sh "${mvn}/bin/mvn deploy"
+                }
             }
         }
     }
