@@ -77,7 +77,8 @@ pipeline {
                 )
             }
         }
-        
+    } 
+
     post {
         always {
             script {
@@ -86,12 +87,12 @@ pipeline {
                     'FAILURE': 'danger'
                 ]
                 def resultColor = COLOR_MAP[currentBuild.currentResult.toString()]
-                slackSend(channel: '#tarea-clase-10', 
-                            color: resultColor, 
-                            message: "**${currentBuild.currentResult}**: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore Info at: ${env.BUILD_URL}"
-                        )
-                }
+                slackSend(
+                    channel: '#tarea-clase-10', 
+                    color: resultColor, 
+                    message: "**${currentBuild.currentResult}**: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore Info at: ${env.BUILD_URL}"
+                )
             }
         }
-    } 
+    }
 }  
