@@ -35,7 +35,7 @@ pipeline {
                 echo 'Sonar Analysis'
                 withSonarQubeEnv('Sonar') {
                     sh """
-                        ${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=demo-app -Dsonar.sources=web/ -Dsonar.junit.reportsPath=target/surefire-reports/ -Dsonar.jacoco.reportsPath=target/jacoco.exec -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+                        ${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=demo-app -Dsonar.sources=web/ -Dsonar.junit.reportsPath=target/surefire-reports/ -Dsonar.jacoco.reportsPath=target/jacoco.exec -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
                     """
                 }
             }
