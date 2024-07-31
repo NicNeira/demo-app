@@ -56,27 +56,28 @@ pipeline {
 
         stage('Upload Artifact') {
             steps {
-            nexusArtifactUploader(
-                nexusVersion: 'nexus3',
-                protocol: 'http',
-                nexusUrl: 'localhost:8081',
-                groupId: 'QA',
-                version: “${env.BUILD_ID}-${env.BUILD_TIMESTAMP}”,
-                repository: 'time-tracker-repo',
-                credentialsId: 'NexusLogin',
-                artifacts: [
-                    [artifactId: 'webApp',
-                    classifier: '',
-                    file: 'web/target/time-tracker-web-0.5.0-SNAPSHOT.war',
-                    type: 'war'],
-                    [artifactId: 'coreApp',
-                    classifier: '',
-                    file: 'core/target/time-tracker-core-0.5.0-SNAPSHOT.jar',
-                    type: 'jar']
-                ]
-            )
+                nexusArtifactUploader(
+                    nexusVersion: 'nexus3',
+                    protocol: 'http',
+                    nexusUrl: '192.168.100.6:8081',
+                    groupId: 'QA',
+                    version: """${env.BUILD_ID}-${env.BUILD_TIMESTAMP}""",
+                    repository: 'maven-demo-app',
+                    credentialsId: 'NexusLogin',
+                    artifacts: [
+                        [artifactId: 'webApp',
+                        classifier: '',
+                        file: 'web/target/demo-app-web-0.5.0-SNAPSHOT.war',
+                        type: 'war'],
+                        [artifactId: 'coreApp',
+                        classifier: '',
+                        file: 'core/target/demo-app-core-0.5.0-SNAPSHOT.jar',
+                        type: 'jar']
+                    ]
+                )
             }
         }
+        
     post {
         always {
             script {
