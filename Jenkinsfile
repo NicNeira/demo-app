@@ -35,17 +35,32 @@ pipeline {
             }
         }
 
-        stage('Deploy Artifact to Nexus') {
-            steps {
-                    script {
-                        def nexusUrl = 'https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/'
-                        def artifact = 'target/demo-app.war'
+        // stage('Deploy Artifact to Nexus') {
+        //     steps {
+        //             script {
+        //                 def nexusUrl = 'https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/'
+        //                 def artifact = 'target/demo-app.war'
 
-                        // Uso de las variables de entorno
-                        sh """
-                        curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file ${artifact} ${nexusUrl}
-                        """
-                }
+        //                 // Uso de las variables de entorno
+        //                 sh """
+        //                 curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file ${artifact} ${nexusUrl}
+        //                 """
+        //         }
+        //     }
+        // }
+    }
+    post {
+        always {
+            script {
+                def COLOR_MAP = [
+                    'SUCCESS': 'good',
+                    'FAILURE': 'danger'
+                ]
+                def resultColor = COLOR_MAP[currentBuild.currentResult.toString()]
+                slackSend(channel: '#tarea-clase-10', 
+                            color: resultColor, 
+                            message: "**${currentBuild.currentResult}**: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\nMore Info at: ${env.BUILD_URL}"
+                        )
             }
         }
     }
