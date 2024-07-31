@@ -19,6 +19,14 @@ pipeline {
             }
         }
 
+        stage('Quality Gate') {
+            steps {
+                timeout(time: 1, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 echo 'Building...'
@@ -35,19 +43,19 @@ pipeline {
             }
         }
 
-        // stage('Deploy Artifact to Nexus') {
-        //     steps {
-        //             script {
-        //                 def nexusUrl = 'https://9146-2800-300-6391-2120-a86e-43aa-3ae-dcf5.ngrok-free.app/repository/maven-demo-app/'
-        //                 def artifact = 'target/demo-app.war'
+        stage('Deploy Artifact to Nexus') {
+            steps {
+                    script {
+                        def nexusUrl = 'https://https://1c34-2800-300-6391-2120-ac46-f587-6b26-11a4.ngrok-free.app/repository/maven-demo-app/'
+                        def artifact = '**/target/*.jar'
 
-        //                 // Uso de las variables de entorno
-        //                 sh """
-        //                 curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file ${artifact} ${nexusUrl}
-        //                 """
-        //         }
-        //     }
-        // }
+                        // Uso de las variables de entorno
+                        sh """
+                        curl -u $NEXUS_USERNAME:$NEXUS_PASSWORD --upload-file ${artifact} ${nexusUrl}
+                        """
+                }
+            }
+        }
     }
     post {
         always {
