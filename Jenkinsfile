@@ -33,10 +33,9 @@ pipeline {
         stage('Sonar Analysis') {
             steps {
                 echo 'Sonar Analysis'
-                sh 'ls -R'
                 withSonarQubeEnv('Sonar') {
                     sh """
-                        ${scannerHome}/bin/sonar-scanner -X -Dsonar.projectKey=demo-app -Dsonar.sources=. -Dsonar.host.url=http://${SONARQUBE_URL}:9000 -Dsonar.junit.reportsPath=target/surefire-reports/ -Dsonar.jacoco.reportsPath=target/jacoco.exec -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
+                        ${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=demo-app -Dsonar.sources=. -Dsonar.host.url=http://${SONARQUBE_URL}:9000 -Dsonar.junit.reportsPath=target/surefire-reports/ -Dsonar.jacoco.reportsPath=target/jacoco.exec -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml
                     """
                 }
             }
@@ -44,11 +43,8 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 1, unit: 'MINUTES') {
-                    def qg = waitForQualityGate()
-                    if (qg.status != 'OK') {
-                        error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                    }
+                timeout(time: 2, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
                 }
             }
         }
