@@ -8,6 +8,23 @@ pipeline {
             }
         }
 
+        
+        stage('Build') {
+            steps {
+                echo 'Building...'
+                // Aquí puedes agregar tus comandos de compilación, por ejemplo:
+                sh 'mvn clean install'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                // Aquí puedes agregar tus comandos de prueba, por ejemplo:
+                sh 'mvn test'
+            }
+        }
+
         stage('SonarQube Analysis') {
             steps {
                 script {
@@ -27,23 +44,7 @@ pipeline {
             }
         }
 
-        stage('Build') {
-            steps {
-                echo 'Building...'
-                // Aquí puedes agregar tus comandos de compilación, por ejemplo:
-                sh 'mvn clean install'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                echo 'Testing...'
-                // Aquí puedes agregar tus comandos de prueba, por ejemplo:
-                sh 'mvn test'
-            }
-        }
-
-        stage('Deploy Artifact to Nexus') {
+        stage('Upload Artifact') {
             steps {
                     script {
                         def nexusUrl = 'https://https://1c34-2800-300-6391-2120-ac46-f587-6b26-11a4.ngrok-free.app/repository/maven-demo-app/'
