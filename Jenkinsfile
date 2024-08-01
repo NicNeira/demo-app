@@ -43,7 +43,8 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                timeout(time: 10, unit: 'MINUTES') {
+                sleep(10)
+                timeout(time: 3, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
             }
@@ -58,7 +59,7 @@ pipeline {
                     groupId: 'QA',
                     version: """${env.BUILD_ID}-${env.BUILD_TIMESTAMP}""",
                     repository: 'maven-demo-app',
-                    credentialsId: 'NexusLogin',
+                    credentialsId: 'nexus-auth',
                     artifacts: [
                         [artifactId: 'webApp',
                         classifier: '',
