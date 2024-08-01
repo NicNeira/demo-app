@@ -7,12 +7,6 @@ pipeline {
     }
 
     stages {
-        stage('SCM') {
-            steps {
-                checkout scm
-            }
-        }
-
         
         stage('Build') {
             steps {
@@ -50,11 +44,6 @@ pipeline {
             }
         }
 
-        stage('Verify Artifact') {
-            steps {
-                sh 'ls -l target/'
-            }
-        }
 
         stage('Upload Artifact') {
             steps {
