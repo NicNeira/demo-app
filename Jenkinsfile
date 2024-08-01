@@ -52,7 +52,7 @@ pipeline {
 
         stage('Verify Artifact') {
             steps {
-                sh 'ls -l web/target/'
+                sh 'ls -l target/'
             }
         }
 
