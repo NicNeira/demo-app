@@ -50,6 +50,12 @@ pipeline {
             }
         }
 
+        stage('Verify Artifact') {
+            steps {
+                sh 'ls -l web/target/'
+            }
+        }
+
         stage('Upload Artifact') {
             steps {
                 nexusArtifactUploader(
