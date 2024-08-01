@@ -69,12 +69,8 @@ pipeline {
                     artifacts: [
                         [artifactId: 'webApp',
                         classifier: '',
-                        file: 'web/target/demo-app-web-0.5.0-SNAPSHOT.war',
+                        file: 'target/demo-app.war',
                         type: 'war'],
-                        [artifactId: 'coreApp',
-                        classifier: '',
-                        file: 'core/target/demo-app-core-0.5.0-SNAPSHOT.jar',
-                        type: 'jar']
                     ]
                 )
             }
