@@ -24,6 +24,12 @@ pipeline {
             }
         }
 
+        stage('Run SoapUI Tests') {
+            steps {
+                sh "${SOAPUI_HOME}/bin/testrunner.sh -s 'TestSuite 1' -c 'TestCase 1' -r -a 'demo-app/CountryInfoService.xml'"
+            }
+        }
+
         stage('Sonar Analysis') {
             steps {
                 echo 'Sonar Analysis'
@@ -37,7 +43,6 @@ pipeline {
 
         stage('Quality Gate') {
             steps {
-                
                 timeout(time: 3, unit: 'MINUTES') {
                     waitForQualityGate abortPipeline: true
                 }
